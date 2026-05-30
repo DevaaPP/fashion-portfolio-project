@@ -88,7 +88,7 @@ const Home = () => {
                 to life.
               </p>
 
-              <div className="quick-stats">
+              <div className="-stats">
                 <div className="stat">
                   <h3>50+</h3>
                   <p>Completed Projects</p>

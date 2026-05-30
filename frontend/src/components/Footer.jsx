@@ -32,7 +32,7 @@ const Footer = () => {
           <div className="footer-section">
             <h4>Connect</h4>
             <div className="social-links">
-              <a href="#instagram" aria-label="Instagram"><FiInstagram size={20} /></a>
+              <a href="https://www.instagram.com/" aria-label="Instagram"><FiInstagram size={20} /></a>
               <a href="#linkedin" aria-label="LinkedIn"><FiLinkedin size={20} /></a>
               <a href="#email" aria-label="Email"><FiMail size={20} /></a>
             </div>
