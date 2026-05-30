@@ -1,0 +1,239 @@
+.contact-page {
+  min-height: 100vh;
+}
+
+.contact-section {
+  background-color: var(--white);
+}
+
+/* Contact Grid */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: var(--spacing-2xl);
+}
+
+.contact-form-wrapper,
+.contact-info-wrapper {
+  animation: slideInLeft 0.8s ease-out;
+}
+
+.contact-info-wrapper {
+  animation: slideInRight 0.8s ease-out;
+}
+
+/* Contact Form Wrapper */
+.contact-form-wrapper h2 {
+  margin-bottom: var(--spacing-lg);
+  font-size: 2rem;
+}
+
+/* Contact Info Cards */
+.contact-info-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.contact-info-card {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  background-color: var(--secondary);
+  border-radius: 0;
+  border-left: 3px solid var(--accent);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.contact-info-card:hover {
+  transform: translateX(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.info-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(212, 165, 116, 0.15);
+  border-radius: 0;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.info-content h4 {
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+
+.info-content p {
+  color: var(--text-light);
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+/* Social Section */
+.social-section {
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--border);
+}
+
+.social-section h4 {
+  margin-bottom: var(--spacing-md);
+}
+
+.social-links-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-sm);
+}
+
+.social-link {
+  padding: var(--spacing-sm);
+  text-align: center;
+  background-color: var(--secondary);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: block;
+}
+
+.social-link:hover {
+  background-color: var(--accent);
+  color: var(--white);
+  border-color: var(--accent);
+}
+
+/* Services Section */
+.services-section {
+  background-color: var(--primary);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.section-header h2 {
+  color: var(--white);
+  margin-bottom: var(--spacing-md);
+}
+
+.section-header p {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.service-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: var(--spacing-lg);
+  border-top: 2px solid var(--accent);
+  animation: fadeIn 0.6s ease-out;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  transform: translateY(-4px);
+}
+
+.service-card h3 {
+  color: var(--white);
+  margin-bottom: var(--spacing-md);
+  font-size: 1.3rem;
+}
+
+.service-card p {
+  color: rgba(255, 255, 255, 0.8);
+  flex-grow: 1;
+  margin-bottom: var(--spacing-lg);
+  font-weight: 300;
+}
+
+.service-price {
+  color: var(--accent);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-md);
+  letter-spacing: 0.5px;
+}
+
+.service-card .btn {
+  width: 100%;
+}
+
+/* FAQ Section */
+.faq-section {
+  background-color: var(--white);
+}
+
+.faq-section h2 {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.faq-items {
+  display: grid;
+  gap: var(--spacing-xl);
+}
+
+.faq-item {
+  padding: var(--spacing-lg);
+  background-color: var(--secondary);
+  border-left: 3px solid var(--accent);
+  border-radius: 0;
+  animation: fadeIn 0.6s ease-out;
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.faq-item h4 {
+  color: var(--primary);
+  margin-bottom: var(--spacing-md);
+  font-size: 1.1rem;
+}
+
+.faq-item p {
+  color: var(--text-light);
+  margin-bottom: 0;
+  line-height: 1.8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+
+  .contact-form-wrapper,
+  .contact-info-wrapper {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  .social-links-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .faq-items {
+    gap: var(--spacing-lg);
+  }
+
+  .faq-item {
+    padding: var(--spacing-md);
+  }
+}

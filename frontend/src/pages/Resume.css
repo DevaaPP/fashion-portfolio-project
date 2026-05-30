@@ -1,0 +1,265 @@
+.resume-page {
+  min-height: 100vh;
+}
+
+.resume-content {
+  background-color: var(--white);
+}
+
+/* Resume Header */
+.resume-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-2xl);
+  padding-bottom: var(--spacing-2xl);
+  border-bottom: 2px solid var(--border);
+  animation: slideInLeft 0.8s ease-out;
+}
+
+.resume-header h2 {
+  margin-bottom: var(--spacing-sm);
+}
+
+.position {
+  font-size: 1.2rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+}
+
+.bio {
+  color: var(--text-light);
+  max-width: 500px;
+}
+
+.download-btn {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+/* Resume Sections */
+.resume-section {
+  margin-bottom: var(--spacing-2xl);
+  animation: fadeIn 0.6s ease-out;
+}
+
+.resume-section h3 {
+  font-size: 1.8rem;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
+}
+
+/* Skills List */
+.skills-list {
+  display: grid;
+  gap: var(--spacing-lg);
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+  padding-left: var(--spacing-lg);
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--accent);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: var(--spacing-xl);
+  animation: slideInLeft 0.6s ease-out;
+}
+
+.timeline-marker {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: var(--white);
+  border: 3px solid var(--accent);
+  border-radius: 50%;
+  left: -24px;
+  top: 5px;
+  transition: all 0.3s ease;
+}
+
+.timeline-item:hover .timeline-marker {
+  transform: scale(1.2);
+  background-color: var(--accent);
+}
+
+.timeline-content {
+  background-color: var(--secondary);
+  padding: var(--spacing-lg);
+  border-left: 3px solid var(--accent);
+  transition: all 0.3s ease;
+}
+
+.timeline-item:hover .timeline-content {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.timeline-content h4 {
+  color: var(--primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.company {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.year {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.responsibilities {
+  list-style: none;
+  padding: 0;
+}
+
+.responsibilities li {
+  padding: 6px 0 6px 20px;
+  position: relative;
+  color: var(--text-light);
+  font-size: 0.95rem;
+}
+
+.responsibilities li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+/* Education List */
+.education-list {
+  display: grid;
+  gap: var(--spacing-lg);
+}
+
+.education-item {
+  padding: var(--spacing-lg);
+  background-color: var(--secondary);
+  border-radius: 0;
+  border-top: 3px solid var(--accent);
+  transition: all 0.3s ease;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.education-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.education-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--spacing-sm);
+  gap: var(--spacing-md);
+}
+
+.education-header h4 {
+  margin-bottom: 0;
+  color: var(--primary);
+}
+
+.school {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.details {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  margin-bottom: 0;
+}
+
+/* Certifications */
+.certifications-list {
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+.certification-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  background-color: var(--secondary);
+  border-radius: 0;
+  transition: all 0.3s ease;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.certification-item:hover {
+  background-color: rgba(212, 165, 116, 0.1);
+  transform: translateX(8px);
+}
+
+.cert-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background-color: var(--accent);
+  color: var(--white);
+  border-radius: 50%;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.certification-item span:last-child {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .resume-header {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .download-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .timeline {
+    padding-left: var(--spacing-md);
+  }
+
+  .timeline-marker {
+    left: -18px;
+  }
+
+  .education-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .year {
+    align-self: flex-start;
+  }
+}
