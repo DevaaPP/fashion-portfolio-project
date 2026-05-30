@@ -345,3 +345,50 @@ input:focus, textarea:focus, select:focus {
   background-color: var(--accent);
   color: var(--white);
 }
+
+/* Prevent accidental text selection and I-beam cursor on static, non-editable content
+   - Applies a default `cursor: default` and `user-select: none` across non-interactive
+     elements to avoid showing the I-beam on headings, cards, resume text, etc.
+   - Explicitly re-enables selection and appropriate cursors for interactive and form
+     controls so inputs, textareas, links and buttons remain fully usable. */
+
+/* Base: make static content non-selectable and use default cursor */
+body, body * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
+}
+
+/* Exceptions: re-enable selection and native cursors for interactive elements */
+a, a *,
+button, button *,
+input, textarea, select, option,
+[contenteditable], [contenteditable] *,
+label, label *,
+.btn, .btn * {
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
+  cursor: auto;
+}
+
+/* Ensure links and buttons show pointer cursor */
+a, button, [role="button"], .btn {
+  cursor: pointer;
+}
+
+/* Keep text cursor for editable text controls */
+input, textarea {
+  cursor: text;
+}
+
+/* Allow selection inside code blocks */
+pre, code {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}

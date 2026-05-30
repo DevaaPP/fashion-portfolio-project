@@ -15,25 +15,25 @@ const Resume = () => {
       skills: [
         { skill: 'Fashion Illustration', proficiency: 'Expert' },
         { skill: 'Pattern Design', proficiency: 'Expert' },
-        { skill: 'Adobe Creative Suite', proficiency: 'Expert' },
+        { skill: 'Adobe Illustrator', proficiency: 'Expert' },
         { skill: 'Textile Design', proficiency: 'Intermediate' },
         { skill: 'Embroidery & Beadwork', proficiency: 'Expert' },
-        { skill: 'Figma', proficiency: 'Intermediate' },
+        { skill: 'Photoshop', proficiency: 'Intermediate' },
       ],
     });
   }, []);
 
   const education = [
     {
-      school: 'Fashion Institute of Technology',
+      school: 'SD MANAGEMENT GROUP OF COLLEGES',
       degree: 'Bachelor of Fine Arts in Fashion Design',
-      year: '2017 - 2021',
+      year: '2021 - 2025',
       details: 'Specialized in sustainable fashion and textile innovation',
     },
     {
-      school: 'International School of Design',
-      degree: 'Diploma in Digital Fashion Design',
-      year: '2022 - 2023',
+      school: 'SATYAM FASHION INSTITUTE',
+      degree: 'Master of Interdisciplinary Design',
+      year: '2026 - 2028',
       details: 'Advanced training in fashion illustration and digital design tools',
     },
   ];

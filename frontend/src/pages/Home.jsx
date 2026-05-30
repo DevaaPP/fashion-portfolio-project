@@ -154,9 +154,9 @@ const Home = () => {
               <h4>Design Software</h4>
               <ul>
                 <li>Adobe Creative Suite</li>
-                <li>Figma</li>
-                <li>Photoshop</li>
                 <li>Illustrator</li>
+                <li>Photoshop</li>
+                <li>Indesign</li>
               </ul>
             </div>
 
