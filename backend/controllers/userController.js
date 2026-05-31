@@ -26,7 +26,7 @@ exports.login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password)
     return res.status(400).json({ message: 'Please provide email and password' });
-
+console.log("EMAIL RECEIVED:", email);
 const user = await User.findOne({ email });
 
 console.log("USER FOUND:", !!user);
