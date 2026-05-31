@@ -18,7 +18,9 @@ const Home = () => {
   const fetchFeaturedWork = async () => {
     setLoading(true);
     try {
-      const response = await api.get('/api/portfolio/featured');
+      // Use query param for featured to match backend getAllPortfolio handler
+      const response = await api.get('/api/portfolio?featured=true');
+      console.debug('Featured API response:', response.data);
       if (response.data.success) {
         setFeaturedWork(response.data.portfolio.slice(0, 3));
       }

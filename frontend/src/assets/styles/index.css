@@ -6,13 +6,13 @@
 
 :root {
   /* Color Palette */
-  --primary: #1a1a1a;
-  --secondary: #f5f5f5;
-  --accent: #d4a574;
-  --accent-dark: #8b7355;
-  --text: #333333;
-  --text-light: #666666;
-  --border: #e0e0e0;
+  --primary: #161616;
+  --secondary: #faf7f2;
+  --accent: #c8a97e;
+  --accent-dark: #a6865f;
+  --text: #2c2c2c;
+  --text-light: #6b6b6b;
+  --border: #ebe5dc;
   --white: #ffffff;
   --error: #e74c3c;
   --success: #27ae60;
