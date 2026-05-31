@@ -43,6 +43,14 @@ export const AuthProvider = ({ children }) => {
     verify();
   }, []); // eslint-disable-line
 
+  const signup = async (name, email, password, confirmPassword) => {
+    const { data } = await axios.post('/api/users/signup', { name, email, password, confirmPassword });
+    if (!data.user?.isAdmin) throw new Error('Not an admin account');
+    setToken(data.token);
+    setUser(data.user);
+    return data.user;
+  };
+
   const login = async (email, password) => {
     const { data } = await axios.post('/api/users/login', { email, password });
     if (!data.user?.isAdmin) throw new Error('Not an admin account');
@@ -57,7 +65,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, token, signup, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

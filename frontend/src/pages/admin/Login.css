@@ -104,7 +104,7 @@
 .back-link {
   display: block;
   text-align: center;
-  margin-top: 1.75rem;
+  margin-top: 1rem;
   color: #666;
   font-size: .875rem;
   font-family: 'Lato', sans-serif;
@@ -112,6 +112,13 @@
   transition: color .25s;
 }
 .back-link:hover { color: #d4a574; }
+
+.login-footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(16px); }

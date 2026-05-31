@@ -1,7 +1,7 @@
 // src/pages/admin/AdminDashboard.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../components/context/AuthContext';
 import axios from 'axios';
 import PortfolioManager from './PortfolioManager';
 import ResumeManager    from './ResumeManager';
