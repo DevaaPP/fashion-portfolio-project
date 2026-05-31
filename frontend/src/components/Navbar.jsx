@@ -10,7 +10,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo">
-          <span className="logo-text">AKANKSHA YADAV</span>
+          <span className="logo-text">VIRAT KOHLI</span>
           <span className="logo-subtext">Fashion & Graphics Design</span>
         </Link>
 

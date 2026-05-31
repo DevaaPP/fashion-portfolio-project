@@ -29,7 +29,7 @@ const Login = () => {
     <div className="login-page">
       <div className="login-card">
         <div className="login-brand">
-          <span className="brand-name">AKANKSHA</span>
+          <span className="brand-name">VIRAT</span>
           <span className="brand-sub">Admin Portal</span>
         </div>
 
