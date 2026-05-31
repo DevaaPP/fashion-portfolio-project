@@ -75,7 +75,7 @@ const Home = () => {
 
           <div className="hero-image">
             {heroWork?.images?.[0]?.url ? (
-              <img src={heroWork.images[0].url} alt={heroWork.title} />
+              <img src={heroWork.images[0].url} alt={heroWork.title} className="hero-featured-work"/>
             ) : (
             <div className="image-placeholder">
               <span>Featured Work</span>
