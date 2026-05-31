@@ -7,6 +7,7 @@ import './Home.css';
 
 const Home = () => {
   const [featuredWork, setFeaturedWork] = useState([]);
+  const [heroWork, setHeroWork] = useState(null);
   const [loading, setLoading] = useState(false);
   const [profile, setProfile] = useState(null);
 
@@ -22,7 +23,14 @@ const Home = () => {
       const response = await api.get('/api/portfolio?featured=true');
       console.debug('Featured API response:', response.data);
       if (response.data.success) {
-        setFeaturedWork(response.data.portfolio.slice(0, 3));
+        const featured = response.data.portfolio.filter(
+          (item) => item.featured === true
+        );
+        
+        setFeaturedWork(featured);
+        if (featured.length > 0) {
+          setHeroWork(featured[0]);
+        }
       }
     } catch (err) {
       console.error('Error fetching featured work:', err);
@@ -66,9 +74,13 @@ const Home = () => {
           </div>
 
           <div className="hero-image">
+            {heroWork?.images?.[0]?.url ? (
+              <img src={heroWork.images[0].url} alt={heroWork.title} />
+            ) : (
             <div className="image-placeholder">
               <span>Featured Work</span>
             </div>
+            )}
           </div>
         </div>
       </section>
@@ -125,7 +137,7 @@ const Home = () => {
             <div className="loading">Loading featured work...</div>
           ) : (
             <>
-              <div className="grid grid-3">
+              <div className="featured-grid">
                 {featuredWork.map((item) => (
                   <PortfolioCard key={item._id} portfolio={item} />
                 ))}
