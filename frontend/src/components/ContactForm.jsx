@@ -15,6 +15,7 @@ const ContactForm = () => {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const User = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -43,7 +44,11 @@ const ContactForm = () => {
         commissionDetails,
       };
 
+      console.log('Submitting to API:', api.defaults.baseURL + '/api/contact/submit');
+      console.log('Form data:', dataToSubmit);
+      
       const response = await api.post('/api/contact/submit', dataToSubmit);
+      console.log('API Response:', response);
 
       if (response.data.success) {
         setSubmitted(true);
@@ -59,7 +64,10 @@ const ContactForm = () => {
         });
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Error submitting form');
+      console.error('Submit error:', err);
+      console.error('Error response:', err.response);
+      console.error('Error message:', err.message);
+      setError(err.response?.data?.message || err.message || 'Error submitting form');
     } finally {
       setLoading(false);
     }
