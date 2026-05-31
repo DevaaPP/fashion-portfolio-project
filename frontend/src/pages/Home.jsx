@@ -98,7 +98,7 @@ const Home = () => {
                   <p>Happy Clients</p>
                 </div>
                 <div className="stat">
-                  <h3>7+</h3>
+                  <h3>3+</h3>
                   <p>Years Experience</p>
                 </div>
               </div>

@@ -1,174 +1,132 @@
+// controllers/portfolioController.js
 const Portfolio = require('../models/Portfolio');
+const cloudinary = require('../config/cloudinaryConfig');
 const asyncHandler = require('express-async-handler');
 
-// Get all portfolio items
+/* ─── Read ──────────────────────────────────────────────────────── */
 exports.getAllPortfolio = asyncHandler(async (req, res) => {
-  const { category, featured } = req.query;
-  let query = {};
-
-  if (category) {
-    query.category = category;
-  }
-  if (featured === 'true') {
-    query.featured = true;
-  }
+  const query = {};
+  if (req.query.category) query.category = req.query.category;
+  if (req.query.featured === 'true') query.featured = true;
 
   const portfolio = await Portfolio.find(query)
     .populate('designer', 'name profileImage')
     .sort({ createdAt: -1 });
-
-  res.status(200).json({
-    success: true,
-    count: portfolio.length,
-    portfolio,
-  });
+  res.json({ success: true, count: portfolio.length, portfolio });
 });
 
-// Get portfolio by category (Digital or Hand)
 exports.getPortfolioByCategory = asyncHandler(async (req, res) => {
   const { category } = req.params;
-
-  if (!['Digital', 'Hand'].includes(category)) {
+  if (!['Digital', 'Hand'].includes(category))
     return res.status(400).json({ message: 'Invalid category' });
-  }
 
   const portfolio = await Portfolio.find({ category })
     .populate('designer', 'name profileImage')
     .sort({ featured: -1, createdAt: -1 });
-
-  res.status(200).json({
-    success: true,
-    category,
-    count: portfolio.length,
-    portfolio,
-  });
+  res.json({ success: true, category, count: portfolio.length, portfolio });
 });
 
-// Get single portfolio item
 exports.getPortfolioItem = asyncHandler(async (req, res) => {
   const portfolio = await Portfolio.findByIdAndUpdate(
     req.params.id,
     { $inc: { viewCount: 1 } },
     { new: true }
   ).populate('designer', 'name bio profileImage');
-
-  if (!portfolio) {
-    return res.status(404).json({ message: 'Portfolio item not found' });
-  }
-
-  res.status(200).json({
-    success: true,
-    portfolio,
-  });
+  if (!portfolio) return res.status(404).json({ message: 'Portfolio item not found' });
+  res.json({ success: true, portfolio });
 });
 
-// Create portfolio item (Designer only)
+exports.getFeaturedPortfolio = asyncHandler(async (req, res) => {
+  const portfolio = await Portfolio.find({ featured: true })
+    .populate('designer', 'name profileImage')
+    .limit(6);
+  res.json({ success: true, count: portfolio.length, portfolio });
+});
+
+/* ─── Create ────────────────────────────────────────────────────── */
 exports.createPortfolio = asyncHandler(async (req, res) => {
   const { title, description, category, tags, tools, completionDate, featured } = req.body;
-
-  if (!title || !description || !category) {
+  if (!title || !description || !category)
     return res.status(400).json({ message: 'Please provide required fields' });
-  }
 
-  const images = req.files ? req.files.map(file => `/uploads/${file.filename}`) : [];
+  // req.files from Cloudinary storage contains { path (url), filename (publicId) }
+  const images = req.files
+    ? req.files.map(f => ({ url: f.path, publicId: f.filename }))
+    : [];
 
   const portfolio = await Portfolio.create({
     title,
     description,
     category,
     images,
-    tags: tags ? tags.split(',') : [],
-    tools: tools ? tools.split(',') : [],
-    completionDate,
-    featured,
+    tags:  tags  ? tags.split(',').map(t => t.trim()).filter(Boolean)  : [],
+    tools: tools ? tools.split(',').map(t => t.trim()).filter(Boolean) : [],
+    completionDate: completionDate || undefined,
+    featured: featured === 'true' || featured === true,
     designer: req.user.id,
   });
 
-  res.status(201).json({
-    success: true,
-    portfolio,
-  });
+  res.status(201).json({ success: true, portfolio });
 });
 
-// Update portfolio item
+/* ─── Update ────────────────────────────────────────────────────── */
 exports.updatePortfolio = asyncHandler(async (req, res) => {
   let portfolio = await Portfolio.findById(req.params.id);
+  if (!portfolio) return res.status(404).json({ message: 'Portfolio item not found' });
+  if (portfolio.designer.toString() !== req.user.id)
+    return res.status(403).json({ message: 'Not authorized' });
 
-  if (!portfolio) {
-    return res.status(404).json({ message: 'Portfolio item not found' });
+  const { title, description, category, tags, tools, completionDate, featured, removeImages } = req.body;
+
+  // Handle image removals (array of publicIds to delete)
+  if (removeImages) {
+    const toRemove = JSON.parse(removeImages);
+    for (const pid of toRemove) {
+      await cloudinary.uploader.destroy(pid).catch(() => {});
+    }
+    portfolio.images = portfolio.images.filter(img => !toRemove.includes(img.publicId));
   }
 
-  // Check authorization
-  if (portfolio.designer.toString() !== req.user.id) {
-    return res.status(403).json({ message: 'Not authorized to update this item' });
+  // Append newly uploaded images
+  if (req.files?.length) {
+    const newImgs = req.files.map(f => ({ url: f.path, publicId: f.filename }));
+    portfolio.images = [...portfolio.images, ...newImgs];
   }
 
-  const { title, description, category, tags, tools, completionDate, featured } = req.body;
+  portfolio.title         = title         ?? portfolio.title;
+  portfolio.description   = description   ?? portfolio.description;
+  portfolio.category      = category      ?? portfolio.category;
+  portfolio.tags          = tags  ? tags.split(',').map(t => t.trim())  : portfolio.tags;
+  portfolio.tools         = tools ? tools.split(',').map(t => t.trim()) : portfolio.tools;
+  portfolio.completionDate = completionDate ?? portfolio.completionDate;
+  portfolio.featured       = featured !== undefined ? (featured === 'true' || featured === true) : portfolio.featured;
 
-  portfolio = await Portfolio.findByIdAndUpdate(
-    req.params.id,
-    {
-      title,
-      description,
-      category,
-      tags: tags ? tags.split(',') : portfolio.tags,
-      tools: tools ? tools.split(',') : portfolio.tools,
-      completionDate,
-      featured,
-    },
-    { new: true, runValidators: true }
-  );
-
-  res.status(200).json({
-    success: true,
-    portfolio,
-  });
+  await portfolio.save();
+  res.json({ success: true, portfolio });
 });
 
-// Delete portfolio item
+/* ─── Delete ────────────────────────────────────────────────────── */
 exports.deletePortfolio = asyncHandler(async (req, res) => {
   const portfolio = await Portfolio.findById(req.params.id);
+  if (!portfolio) return res.status(404).json({ message: 'Portfolio item not found' });
+  if (portfolio.designer.toString() !== req.user.id)
+    return res.status(403).json({ message: 'Not authorized' });
 
-  if (!portfolio) {
-    return res.status(404).json({ message: 'Portfolio item not found' });
-  }
-
-  // Check authorization
-  if (portfolio.designer.toString() !== req.user.id) {
-    return res.status(403).json({ message: 'Not authorized to delete this item' });
+  // Remove all images from Cloudinary
+  for (const img of portfolio.images) {
+    await cloudinary.uploader.destroy(img.publicId).catch(() => {});
   }
 
   await Portfolio.findByIdAndDelete(req.params.id);
-
-  res.status(200).json({
-    success: true,
-    message: 'Portfolio item deleted successfully',
-  });
+  res.json({ success: true, message: 'Deleted successfully' });
 });
 
-// Like portfolio item
+/* ─── Like ──────────────────────────────────────────────────────── */
 exports.likePortfolio = asyncHandler(async (req, res) => {
   const portfolio = await Portfolio.findByIdAndUpdate(
     req.params.id,
     { $inc: { likes: 1 } },
     { new: true }
   );
-
-  res.status(200).json({
-    success: true,
-    portfolio,
-  });
-});
-
-// Get featured portfolio
-exports.getFeaturedPortfolio = asyncHandler(async (req, res) => {
-  const portfolio = await Portfolio.find({ featured: true })
-    .populate('designer', 'name profileImage')
-    .limit(6);
-
-  res.status(200).json({
-    success: true,
-    count: portfolio.length,
-    portfolio,
-  });
+  res.json({ success: true, portfolio });
 });

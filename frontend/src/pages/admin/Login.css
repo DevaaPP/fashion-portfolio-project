@@ -1,0 +1,119 @@
+/* Login.css */
+.login-page {
+  min-height: 100vh;
+  background: #0f0f0f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.login-card {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  padding: 3rem 2.5rem;
+  width: 100%;
+  max-width: 420px;
+  animation: fadeIn .5s ease-out;
+}
+
+.login-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.brand-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #fff;
+}
+
+.brand-sub {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #d4a574;
+  margin-top: 4px;
+}
+
+.login-form .field {
+  margin-bottom: 1.5rem;
+}
+
+.login-form label {
+  display: block;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #aaa;
+  margin-bottom: 0.5rem;
+}
+
+.login-form input {
+  width: 100%;
+  background: #111;
+  border: 1px solid #333;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  font-family: 'Lato', sans-serif;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color .25s;
+}
+
+.login-form input:focus {
+  border-color: #d4a574;
+}
+
+.login-form input::placeholder { color: #555; }
+
+.login-error {
+  background: rgba(231,76,60,.15);
+  border-left: 3px solid #e74c3c;
+  color: #e74c3c;
+  padding: .75rem 1rem;
+  margin-bottom: 1.25rem;
+  font-size: .9rem;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 0.9rem;
+  background: #d4a574;
+  color: #0f0f0f;
+  border: none;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .25s, transform .15s;
+}
+
+.login-btn:hover:not(:disabled) { background: #c4916a; transform: translateY(-1px); }
+.login-btn:disabled { opacity: .6; cursor: not-allowed; }
+
+.back-link {
+  display: block;
+  text-align: center;
+  margin-top: 1.75rem;
+  color: #666;
+  font-size: .875rem;
+  font-family: 'Lato', sans-serif;
+  text-decoration: none;
+  transition: color .25s;
+}
+.back-link:hover { color: #d4a574; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

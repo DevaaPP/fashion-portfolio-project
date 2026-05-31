@@ -1,4 +1,10 @@
+// models/Portfolio.js
 const mongoose = require('mongoose');
+
+const imageSchema = new mongoose.Schema({
+  url:      { type: String, required: true },
+  publicId: { type: String, required: true }, // needed for Cloudinary deletion
+}, { _id: false });
 
 const portfolioSchema = new mongoose.Schema(
   {
@@ -15,9 +21,9 @@ const portfolioSchema = new mongoose.Schema(
       enum: ['Digital', 'Hand'],
       required: true,
     },
-    images: [String], // Array of image URLs
-    tags: [String], // Relevant tags/techniques
-    tools: [String], // Software/materials used
+    images: [imageSchema],          // { url, publicId }
+    tags:   [String],
+    tools:  [String],
     completionDate: Date,
     featured: {
       type: Boolean,
@@ -28,14 +34,8 @@ const portfolioSchema = new mongoose.Schema(
       ref: 'User',
       required: true,
     },
-    viewCount: {
-      type: Number,
-      default: 0,
-    },
-    likes: {
-      type: Number,
-      default: 0,
-    },
+    viewCount: { type: Number, default: 0 },
+    likes:     { type: Number, default: 0 },
   },
   { timestamps: true }
 );

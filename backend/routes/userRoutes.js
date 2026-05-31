@@ -1,38 +1,24 @@
+// routes/userRoutes.js
 const express = require('express');
-const router = express.Router();
-const multer = require('multer');
-const {
-  signup,
-  login,
-  getCurrentUser,
-  getUserProfile,
-  updateProfile,
-  uploadProfileImage,
-  uploadResume,
-} = require('../controllers/userController');
+const router  = express.Router();
 const { auth } = require('../middleware/auth');
+const { uploadProfileImage, uploadResumePDF } = require('../middleware/uploadMiddleware');
+const {
+  signup, login, getCurrentUser, getUserProfile,
+  updateProfile, uploadProfileImage: uploadImgCtrl,
+  uploadResume, deleteResume,
+} = require('../controllers/userController');
 
-// Multer setup
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname);
-  },
-});
-
-const upload = multer({ storage });
-
-// Public routes
+// Public
 router.post('/signup', signup);
-router.post('/login', login);
-router.get('/profile/:id', getUserProfile);
+router.post('/login',  login);
+router.get('/profile/:id', getUserProfile);  // :id can be "designer" for shorthand
 
-// Protected routes
-router.get('/me', auth, getCurrentUser);
-router.put('/update', auth, updateProfile);
-router.post('/upload-image', auth, upload.single('image'), uploadProfileImage);
-router.post('/upload-resume', auth, upload.single('resume'), uploadResume);
+// Protected
+router.get('/me',           auth, getCurrentUser);
+router.put('/update',       auth, updateProfile);
+router.post('/upload-image', auth, uploadProfileImage,  uploadImgCtrl);
+router.post('/upload-resume', auth, uploadResumePDF,    uploadResume);
+router.delete('/resume',    auth, deleteResume);
 
 module.exports = router;
