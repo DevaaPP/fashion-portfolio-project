@@ -11,7 +11,11 @@ const app = express();
 connectDB();
 
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  origin: [
+    process.env.CLIENT_URL,
+    'https://fashion-portfolio-one.vercel.app',
+    'http://localhost:3000',
+  ],
   credentials: true,
 }));
 app.use(express.json());
@@ -25,6 +29,12 @@ app.use('/api/admin',     require('./routes/adminRoutes'));
 
 // Health check
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
+app.get('/api/debug-origin', (req, res) => {
+  res.json({
+    clientUrl: process.env.CLIENT_URL,
+    origin: req.headers.origin
+  });
+});
 
 // 404
 app.use('*', (req, res) => res.status(404).json({ message: 'Route not found' }));
