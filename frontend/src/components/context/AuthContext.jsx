@@ -53,13 +53,23 @@ export const AuthProvider = ({ children }) => {
     return data.user;
   };
 
-  const login = async (email, password) => {
-    const { data } = await api.post('/api/users/login', { email, password });
-    if (!data.user?.isAdmin) throw new Error('Not an admin account');
-    setToken(data.token);
-    setUser(data.user);
-    return data.user;
-  };
+const login = async (email, password) => {
+  console.log("LOGIN FUNCTION CALLED");
+
+  const { data } = await api.post('/api/users/login', {
+    email,
+    password
+  });
+
+  console.log("LOGIN RESPONSE:", data);
+
+  if (!data.user?.isAdmin) throw new Error('Not an admin account');
+
+  setToken(data.token);
+  setUser(data.user);
+
+  return data.user;
+};
 
   const logout = () => {
     setToken(null);

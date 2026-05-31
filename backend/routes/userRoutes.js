@@ -21,4 +21,11 @@ router.post('/upload-image', auth, uploadProfileImage,  uploadImgCtrl);
 router.post('/upload-resume', auth, uploadResumePDF,    uploadResume);
 router.delete('/resume',    auth, deleteResume);
 
+router.get('/test', (req, res) => {
+  res.json({
+    success: true,
+    message: 'User routes working'
+  });
+});
+
 module.exports = router;
