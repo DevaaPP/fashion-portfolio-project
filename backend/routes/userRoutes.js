@@ -8,19 +8,28 @@ const {
   updateProfile, uploadProfileImage: uploadImgCtrl,
   uploadResume, deleteResume,
 } = require('../controllers/userController');
+const User = require('../models/User');
 
 // Public
 router.post('/signup', signup);
 router.post('/login',  login);
-router.get('/profile/:id', async (req,res) => {
-  const user = await User.findOne();
+router.get('/profile/designer', async (req, res) => {
+  try {
+    const user = await User.findOne().select('-password');
 
-  res.json({
-    success: true,
-    user
-  });
-});  // :id can be "designer" for shorthand
+    res.json({
+      success: true,
+      user
+    });
+  } catch (err) {
+    console.error(err);
 
+    res.status(500).json({
+      success: false,
+      message: err.message
+    });
+  }
+});
 // Protected
 router.get('/me',           auth, getCurrentUser);
 router.put('/update',       auth, updateProfile);
