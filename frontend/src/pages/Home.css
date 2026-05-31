@@ -65,6 +65,8 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  max-width: 350px;
+  margin: 0 auto;
 
   animation: slideInRight 0.8s ease-out;
 }
@@ -73,7 +75,7 @@
   width: 100%;
   max-width: 380px;
 
-  height: 500px;
+  height: auto;
 
   object-fit: cover;
   object-position: center;
