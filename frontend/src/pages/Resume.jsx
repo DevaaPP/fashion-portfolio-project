@@ -99,6 +99,7 @@ const Resume = () => {
               <h2>{profile?.name}</h2>
               <p className="position">{profile?.title}</p>
               <p className="bio">{profile?.bio}</p>
+              {profile?.about && <p className="about">{profile?.about}</p>}
             </div>
             <button
               className="btn btn-primary download-btn"

@@ -34,6 +34,13 @@
   max-width: 500px;
 }
 
+.about {
+  color: var(--text-light);
+  max-width: 500px;
+  margin-top: var(--spacing-sm);
+  line-height: 1.6;
+}
+
 .download-btn {
   white-space: nowrap;
   display: flex;

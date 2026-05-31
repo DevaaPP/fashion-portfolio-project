@@ -4,7 +4,7 @@ import { FiArrowRight, FiHeart } from 'react-icons/fi';
 import './PortfolioCard.css';
 
 const PortfolioCard = ({ portfolio }) => {
-  const mainImage = portfolio.images?.[0] || '/placeholder.jpg';
+  const mainImage = portfolio.images?.[0]?.url || 'https://via.placeholder.com/400x300?text=No+Image';
   const [liked, setLiked] = React.useState(false);
 
   const handleLike = () => {

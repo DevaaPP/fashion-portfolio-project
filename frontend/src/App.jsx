@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Portfolio from './pages/Portfolio';
+import PortfolioDetail from './pages/PortfolioDetail';
 import Resume from './pages/Resume';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
@@ -36,6 +37,7 @@ const AppRoutes = () => {
               </ProtectedRoute>
             }
           />
+          <Route path="/portfolio/:id" element={<Portfolio />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
