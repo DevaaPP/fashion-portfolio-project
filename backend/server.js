@@ -13,7 +13,6 @@ connectDB();
 app.use(cors({
   origin: [
     process.env.CLIENT_URL,
-    'https://fashion-portfolio-one.vercel.app',
     'http://localhost:3000',
   ],
   credentials: true,
