@@ -1,26 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { FiDownload } from 'react-icons/fi';
 import SkillTag from '../components/SkillTag';
+import api from '../api/axiosClient';
 import './Resume.css';
 
 const Resume = () => {
   const [profile, setProfile] = useState(null);
+  const [resumeUrl, setResumeUrl] = useState('');
+  const [downloading, setDownloading] = useState(false);
 
   useEffect(() => {
-    // Mock profile data - in real app, fetch from API
-    setProfile({
-      name: 'Fashion Designer',
-      title: 'Fashion & Design Specialist',
-      bio: 'Innovative fashion designer with expertise in both digital and hand-crafted designs',
-      skills: [
-        { skill: 'Fashion Illustration', proficiency: 'Expert' },
-        { skill: 'Pattern Design', proficiency: 'Expert' },
-        { skill: 'Adobe Illustrator', proficiency: 'Expert' },
-        { skill: 'Textile Design', proficiency: 'Intermediate' },
-        { skill: 'Embroidery & Beadwork', proficiency: 'Expert' },
-        { skill: 'Photoshop', proficiency: 'Intermediate' },
-      ],
-    });
+    const fetchProfile = async () => {
+      try {
+        // 'designer' returns the first admin user (public profile)
+        const { data } = await api.get('/api/users/profile/designer');
+        if (data?.success && data.user) {
+          setProfile(data.user);
+          setResumeUrl(data.user?.resume?.url || '');
+        }
+      } catch (err) {
+        console.error('Failed to load profile for resume page', err);
+      }
+    };
+    fetchProfile();
   }, []);
 
   const education = [
@@ -98,8 +100,34 @@ const Resume = () => {
               <p className="position">{profile?.title}</p>
               <p className="bio">{profile?.bio}</p>
             </div>
-            <button className="btn btn-primary download-btn">
-              <FiDownload /> Download Resume
+            <button
+              className="btn btn-primary download-btn"
+              onClick={async () => {
+                if (!resumeUrl) return;
+                setDownloading(true);
+                try {
+                  // Try fetching the file as a blob and trigger client-side download
+                  const resp = await fetch(resumeUrl);
+                  if (!resp.ok) throw new Error('Network response not ok');
+                  const blob = await resp.blob();
+                  const blobUrl = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = blobUrl;
+                  a.download = 'resume.pdf';
+                  document.body.appendChild(a);
+                  a.click();
+                  a.remove();
+                  URL.revokeObjectURL(blobUrl);
+                } catch (err) {
+                  // Fallback: open in new tab
+                  window.open(resumeUrl, '_blank', 'noopener');
+                } finally {
+                  setDownloading(false);
+                }
+              }}
+              disabled={!resumeUrl || downloading}
+            >
+              <FiDownload /> {downloading ? 'Downloading…' : 'Download Resume'}
             </button>
           </div>
 

@@ -109,7 +109,8 @@
 .skill-row { display: flex; gap: .6rem; align-items: center; }
 
 .skill-input {
-  flex: 1;
+  flex: 1 1 auto;
+  min-width: 160px;
   background: #111;
   border: 1px solid var(--ad-border);
   color: var(--ad-text);
@@ -121,6 +122,7 @@
 .skill-input:focus { border-color: var(--ad-accent); }
 
 .skill-select {
+  flex: 0 0 150px;
   background: #111;
   border: 1px solid var(--ad-border);
   color: var(--ad-text);
@@ -128,7 +130,8 @@
   font-family: 'Lato', sans-serif;
   font-size: .875rem;
   outline: none;
-  min-width: 130px;
+  min-width: 120px;
+  max-width: 220px;
 }
 .skill-select option { background: #1a1a1a; }
 
