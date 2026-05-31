@@ -24,8 +24,11 @@ const Navbar = () => {
           <Link to="/resume" className="nav-link" onClick={() => setIsOpen(false)}>
             Resume
           </Link>
-          <Link to="/contact" className="nav-link nav-link-cta" onClick={() => setIsOpen(false)}>
+          <Link to="/contact" className="nav-link" onClick={() => setIsOpen(false)}>
             Contact
+          </Link>
+          <Link to="/admin/login" className="nav-link nav-link-admin" onClick={() => setIsOpen(false)}>
+            Admin
           </Link>
         </div>
 
