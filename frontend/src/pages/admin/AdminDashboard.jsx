@@ -57,7 +57,7 @@ const AdminDashboard = () => {
       {/* Sidebar */}
       <aside className={`admin-sidebar ${sideOpen ? 'open' : ''}`}>
         <div className="sidebar-brand">
-          <span className="sb-name">ATELIER</span>
+          <span className="sb-name">AKANKSHA</span>
           <span className="sb-role">Admin</span>
         </div>
 
