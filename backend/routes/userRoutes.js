@@ -12,7 +12,14 @@ const {
 // Public
 router.post('/signup', signup);
 router.post('/login',  login);
-router.get('/profile/:id', getUserProfile);  // :id can be "designer" for shorthand
+router.get('/profile/:id', async (req,res) => {
+  const user = await User.findOne();
+
+  res.json({
+    success: true,
+    user
+  });
+});  // :id can be "designer" for shorthand
 
 // Protected
 router.get('/me',           auth, getCurrentUser);

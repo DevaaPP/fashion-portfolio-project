@@ -19,7 +19,7 @@ const Portfolio = () => {
       if (category !== 'All') {
         url = `/api/portfolio/category/${category}`;
       }
-      const response = await api.get(url);
+      const response = await api.get('/api/portfolio');
       if (response.data.success) {
         setPortfolio(response.data.portfolio);
       }

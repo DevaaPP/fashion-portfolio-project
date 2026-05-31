@@ -41,8 +41,8 @@ const Home = () => {
 
   const fetchProfile = async () => {
     try {
-      // Fetch from first user (designer)
-      const response = await api.get('/api/users/profile/1');
+      // Fetch from first admin user (designer)
+      const response = await api.get('/api/users/profile/designer');
       if (response.data.success) {
         setProfile(response.data.user);
       }
@@ -119,7 +119,15 @@ const Home = () => {
             </div>
 
             <div className="about-image">
-              <div className="image-placeholder">Profile Image</div>
+              {profile?.profileImage?.url ? (
+                <img 
+                  src={profile.profileImage.url}
+                  alt="Profile Image"
+                  className="hero-featured-image"
+                />
+              ) : (
+                <div className="image-placeholder">Profile Image</div>
+              )}
             </div>
           </div>
         </div>

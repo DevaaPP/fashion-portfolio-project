@@ -165,7 +165,24 @@
 }
 
 .about-image {
-  animation: slideInRight 0.8s ease-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-image {
+  width: 100%;
+  max-width: 450px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+}
+
+.about-image .image-placeholder {
+  width: 100%;
+  max-width: 450px;
+  aspect-ratio: 1;
 }
 
 .about-image .image-placeholder {
