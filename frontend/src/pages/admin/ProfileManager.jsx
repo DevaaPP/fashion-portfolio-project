@@ -1,6 +1,6 @@
 // src/pages/admin/ProfileManager.jsx
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import api from '../../api/axiosClient';
 import { FiUpload, FiPlus, FiTrash2 } from 'react-icons/fi';
 import './ProfileManager.css';
 
@@ -25,7 +25,7 @@ const ProfileManager = () => {
 
   const fetchProfile = async () => {
     try {
-      const { data } = await axios.get('/api/users/me');
+      const { data } = await api.get('/api/users/me');
       const u = data.user;
       setForm({
         name: u.name || '',
@@ -63,14 +63,14 @@ const ProfileManager = () => {
       fd.append('about',       form.about);
       fd.append('skills',      JSON.stringify(form.skills));
       fd.append('socialLinks', JSON.stringify(form.socialLinks));
-      await axios.put('/api/users/update', fd);
+      await api.put('/api/users/update', fd);
 
       // Upload image if selected
       if (imgFile) {
         setImgUploading(true);
         const imgFd = new FormData();
         imgFd.append('image', imgFile);
-        const { data } = await axios.post('/api/users/upload-image', imgFd, {
+        const { data } = await api.post('/api/users/upload-image', imgFd, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
         setCurrentImg(data.user?.profileImage?.url || '');

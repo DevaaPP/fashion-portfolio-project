@@ -1,6 +1,6 @@
 // src/pages/admin/PortfolioManager.jsx
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import api from '../../api/axiosClient';
 import { FiPlus, FiEdit2, FiTrash2, FiX, FiUpload, FiStar } from 'react-icons/fi';
 import './PortfolioManager.css';
 
@@ -25,7 +25,7 @@ const PortfolioManager = () => {
   const fetchItems = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get('/api/portfolio');
+      const { data } = await api.get('/api/portfolio');
       setItems(data.portfolio);
     } catch { setError('Failed to load portfolio'); }
     finally { setLoading(false); }
@@ -86,9 +86,9 @@ const PortfolioManager = () => {
       if (editing && removeIds.length) fd.append('removeImages', JSON.stringify(removeIds));
 
       if (editing) {
-        await axios.put(`/api/portfolio/${editing._id}`, fd, { headers: { 'Content-Type': 'multipart/form-data' } });
+        await api.put(`/api/portfolio/${editing._id}`, fd, { headers: { 'Content-Type': 'multipart/form-data' } });
       } else {
-        await axios.post('/api/portfolio', fd, { headers: { 'Content-Type': 'multipart/form-data' } });
+        await api.post('/api/portfolio', fd, { headers: { 'Content-Type': 'multipart/form-data' } });
       }
       await fetchItems();
       closeForm();
@@ -100,7 +100,7 @@ const PortfolioManager = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this portfolio item? Images will be removed from Cloudinary.')) return;
     try {
-      await axios.delete(`/api/portfolio/${id}`);
+      await api.delete(`/api/portfolio/${id}`);
       setItems(prev => prev.filter(i => i._id !== id));
     } catch { alert('Delete failed'); }
   };

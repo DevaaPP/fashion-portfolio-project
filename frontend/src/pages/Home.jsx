@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowRight, FiDownload } from 'react-icons/fi';
-import axios from 'axios';
+import api from '../api/axiosClient';
 import PortfolioCard from '../components/PortfolioCard';
 import './Home.css';
 
@@ -18,7 +18,7 @@ const Home = () => {
   const fetchFeaturedWork = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('/api/portfolio/featured');
+      const response = await api.get('/api/portfolio/featured');
       if (response.data.success) {
         setFeaturedWork(response.data.portfolio.slice(0, 3));
       }
@@ -32,7 +32,7 @@ const Home = () => {
   const fetchProfile = async () => {
     try {
       // Fetch from first user (designer)
-      const response = await axios.get('/api/users/profile/1');
+      const response = await api.get('/api/users/profile/1');
       if (response.data.success) {
         setProfile(response.data.user);
       }

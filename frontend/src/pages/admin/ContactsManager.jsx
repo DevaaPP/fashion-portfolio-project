@@ -1,6 +1,6 @@
 // src/pages/admin/ContactsManager.jsx
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../api/axiosClient';
 import { FiMail, FiTrash2, FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import './ContactsManager.css';
 
@@ -22,7 +22,7 @@ const ContactsManager = () => {
   const fetchContacts = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get('/api/admin/contacts');
+      const { data } = await api.get('/api/admin/contacts');
       setContacts(data.contacts);
     } catch {}
     finally { setLoading(false); }
@@ -30,7 +30,7 @@ const ContactsManager = () => {
 
   const setStatus = async (id, status) => {
     try {
-      await axios.put(`/api/admin/contacts/${id}/status`, { status });
+      await api.put(`/api/admin/contacts/${id}/status`, { status });
       setContacts(prev => prev.map(c => c._id === id ? { ...c, status } : c));
     } catch {}
   };
@@ -38,7 +38,7 @@ const ContactsManager = () => {
   const deleteContact = async (id) => {
     if (!window.confirm('Delete this message permanently?')) return;
     try {
-      await axios.delete(`/api/admin/contacts/${id}`);
+      await api.delete(`/api/admin/contacts/${id}`);
       setContacts(prev => prev.filter(c => c._id !== id));
       if (expanded === id) setExpanded(null);
     } catch {}

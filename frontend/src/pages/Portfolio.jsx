@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/axiosClient';
 import PortfolioCard from '../components/PortfolioCard';
 import './Portfolio.css';
 
@@ -19,7 +19,7 @@ const Portfolio = () => {
       if (category !== 'All') {
         url = `/api/portfolio/category/${category}`;
       }
-      const response = await axios.get(url);
+      const response = await api.get(url);
       if (response.data.success) {
         setPortfolio(response.data.portfolio);
       }

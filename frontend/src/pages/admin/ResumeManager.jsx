@@ -1,6 +1,6 @@
 // src/pages/admin/ResumeManager.jsx
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import api from '../../api/axiosClient';
 import { FiUpload, FiDownload, FiTrash2, FiFileText, FiExternalLink } from 'react-icons/fi';
 import './ResumeManager.css';
 
@@ -17,7 +17,7 @@ const ResumeManager = ({ onStatRefresh }) => {
 
   const fetchCurrentResume = async () => {
     try {
-      const { data } = await axios.get('/api/users/me');
+      const { data } = await api.get('/api/users/me');
       setResumeData(data.user?.resume || { url: '', publicId: '' });
     } catch {}
   };
@@ -30,7 +30,7 @@ const ResumeManager = ({ onStatRefresh }) => {
     const fd = new FormData();
     fd.append('resume', file);
     try {
-      const { data } = await axios.post('/api/users/upload-resume', fd, {
+      const { data } = await api.post('/api/users/upload-resume', fd, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setResumeData(data.user?.resume || { url: '', publicId: '' });
@@ -45,7 +45,7 @@ const ResumeManager = ({ onStatRefresh }) => {
     if (!window.confirm('Delete the current resume from Cloudinary?')) return;
     setDeleting(true);
     try {
-      await axios.delete('/api/users/resume');
+      await api.delete('/api/users/resume');
       setResumeData({ url: '', publicId: '' });
       setMsg('Resume deleted.');
       onStatRefresh?.();

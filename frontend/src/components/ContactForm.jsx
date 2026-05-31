@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api/axiosClient';
 import './ContactForm.css';
 
 const ContactForm = () => {
@@ -43,7 +43,7 @@ const ContactForm = () => {
         commissionDetails,
       };
 
-      const response = await axios.post('/api/contact/submit', dataToSubmit);
+      const response = await api.post('/api/contact/submit', dataToSubmit);
 
       if (response.data.success) {
         setSubmitted(true);

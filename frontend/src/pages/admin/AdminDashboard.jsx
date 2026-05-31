@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../components/context/AuthContext';
-import axios from 'axios';
+import api from '../../api/axiosClient';
 import PortfolioManager from './PortfolioManager';
 import ResumeManager    from './ResumeManager';
 import ProfileManager   from './ProfileManager';
@@ -43,7 +43,7 @@ const AdminDashboard = () => {
 
   const fetchStats = async () => {
     try {
-      const { data } = await axios.get('/api/admin/stats');
+      const { data } = await api.get('/api/admin/stats');
       setStats(data.stats);
       setRecent(data.recentContacts);
     } catch {}
