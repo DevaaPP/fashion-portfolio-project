@@ -204,6 +204,10 @@ const PortfolioManager = () => {
                     Feature on homepage
                   </label>
                 </div>
+                <div className="field">
+                  <label>Priority</label>
+                  <input type="number" value={form.priority} onChange={e => setForm(p=>({...p,priority:Number(e.target.value)}))} />
+                </div>
               </div>
 
               {/* Existing images */}
@@ -241,6 +245,7 @@ const PortfolioManager = () => {
                   </div>
                 )}
               </div>
+
 
               {error && <p className="form-error">{error}</p>}
 

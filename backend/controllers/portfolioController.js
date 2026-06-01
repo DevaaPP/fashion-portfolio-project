@@ -45,7 +45,7 @@ exports.getFeaturedPortfolio = asyncHandler(async (req, res) => {
 
 /* ─── Create ────────────────────────────────────────────────────── */
 exports.createPortfolio = asyncHandler(async (req, res) => {
-  const { title, description, category, tags, tools, completionDate, featured } = req.body;
+  const { title, description, category, tags, tools, completionDate, featured, priority } = req.body;
   if (!title || !description || !category)
     return res.status(400).json({ message: 'Please provide required fields' });
 
@@ -58,6 +58,7 @@ exports.createPortfolio = asyncHandler(async (req, res) => {
     title,
     description,
     category,
+    priority: Number(priority) || 0,
     images,
     tags:  tags  ? tags.split(',').map(t => t.trim()).filter(Boolean)  : [],
     tools: tools ? tools.split(',').map(t => t.trim()).filter(Boolean) : [],
@@ -76,7 +77,7 @@ exports.updatePortfolio = asyncHandler(async (req, res) => {
   if (portfolio.designer.toString() !== req.user.id)
     return res.status(403).json({ message: 'Not authorized' });
 
-  const { title, description, category, tags, tools, completionDate, featured, removeImages } = req.body;
+  const { title, description, category, tags, tools, completionDate, featured, priority, removeImages } = req.body;
 
   // Handle image removals (array of publicIds to delete)
   if (removeImages) {
@@ -101,6 +102,7 @@ exports.updatePortfolio = asyncHandler(async (req, res) => {
   portfolio.completionDate = completionDate ?? portfolio.completionDate;
   portfolio.featured       = featured !== undefined ? (featured === 'true' || featured === true) : portfolio.featured;
 
+  portfolio.priority       = priority !== undefined ? Number(priority) : portfolio.priority;
   await portfolio.save();
   res.json({ success: true, portfolio });
 });

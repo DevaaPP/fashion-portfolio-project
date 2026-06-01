@@ -21,6 +21,10 @@ const portfolioSchema = new mongoose.Schema(
       enum: ['Digital', 'Hand'],
       required: true,
     },
+    priority: {
+      type: Number,
+      default: 0
+    },
     images: [imageSchema],          // { url, publicId }
     tags:   [String],
     tools:  [String],
@@ -33,10 +37,6 @@ const portfolioSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true,
-    },
-    priority: {
-      type: Number,
-      default: 0, // Higher priority items show first
     },
     viewCount: { type: Number, default: 0 },
     likes:     { type: Number, default: 0 },
