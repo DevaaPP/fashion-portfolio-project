@@ -230,7 +230,7 @@ const Home = () => {
             <Link to="/contact" className="btn btn-secondary">
               Commission a Design
             </Link>
-            <Link to="/resume" className="btn btn-outline">
+            <Link to="/resume" className="btn btn-outline-dark">
               <FiDownload /> Download Resume
             </Link>
           </div>
