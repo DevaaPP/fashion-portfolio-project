@@ -29,7 +29,7 @@ const Home = () => {
         
         const works = response.data.portfolio;
         setHeroWork(works[0]);
-        setFeaturedWork(works.slice(0, 4)); // Show top 4 featured works on homepage
+        setFeaturedWork(works.slice(1)); // Show top featured works on homepage
         if (featured.length > 0) {
           setHeroWork(featured[0]);
         }
