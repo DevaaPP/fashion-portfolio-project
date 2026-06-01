@@ -34,6 +34,10 @@ const portfolioSchema = new mongoose.Schema(
       ref: 'User',
       required: true,
     },
+    priority: {
+      type: Number,
+      default: 0, // Higher priority items show first
+    },
     viewCount: { type: Number, default: 0 },
     likes:     { type: Number, default: 0 },
   },

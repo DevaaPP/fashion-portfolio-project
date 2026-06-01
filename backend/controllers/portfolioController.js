@@ -11,7 +11,7 @@ exports.getAllPortfolio = asyncHandler(async (req, res) => {
 
   const portfolio = await Portfolio.find(query)
     .populate('designer', 'name profileImage')
-    .sort({ createdAt: -1 });
+    .sort({ priority: -1, createdAt: -1 });
   res.json({ success: true, count: portfolio.length, portfolio });
 });
 

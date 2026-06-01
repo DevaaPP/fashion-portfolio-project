@@ -27,7 +27,9 @@ const Home = () => {
           (item) => item.featured === true
         );
         
-        setFeaturedWork(featured);
+        const works = response.data.portfolio;
+        setHeroWork(works[0]);
+        setFeaturedWork(works.slice(0, 4)); // Show top 4 featured works on homepage
         if (featured.length > 0) {
           setHeroWork(featured[0]);
         }
